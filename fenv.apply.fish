@@ -27,6 +27,11 @@ function fenv.apply
     for variable in $VARIABLES
         set KEY (echo $variable | sed -e 's/=.*//')
         set VALUE (echo $variable | sed -e 's/.*=//')
+
+        if [ $KEY = 'PATH' ]
+          set VALUE (echo $variable | sed -e 's/:/ /')
+        end
+
         set COMMAND "set -g -x $KEY $VALUE"
 
         eval "$COMMAND" > /dev/null 2>&1
