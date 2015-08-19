@@ -42,5 +42,5 @@ function fenv.main
 
   fenv.apply $ENVIRONMENT_DIFF
 
-  printf $PROGRAM_OUTPUT
+  printf "$PROGRAM_OUTPUT"
 end
