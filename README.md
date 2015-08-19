@@ -32,6 +32,13 @@ to your **Oh My Fish** configuration:
 
     Plugin 'fenv'
 
+## Caveats
+
+* Some applications may loose output formatting due to the way fish handle storage
+of multiline strings.
+* Currently we only handle environment variables that are added or modified. If
+a variable is unset (removed from environment) it will not be removed from fish.
+
 ## License
 
 ```
