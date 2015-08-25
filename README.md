@@ -23,14 +23,11 @@ prevent fish from interpreting it.
 
 ## Installation
 
-Currently, to install this plugin you need to
+Add the following line to your __Oh My Fish!__ config file:
 
-    git clone https://github.com/derekstavis/plugin-foreign-env.git ~/.oh-my-fish/plugins/fenv
+    Plugin "foreign-env"
 
-And reload your shell. You can just try the plugin or install it by adding it
-to your **Oh My Fish** configuration:
-
-    Plugin 'fenv'
+Reload your shell, issue a `omf install` and reload again.
 
 ## Caveats
 
