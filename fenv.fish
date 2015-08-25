@@ -23,10 +23,6 @@
 
 function fenv
   if [ (count $argv) -gt 0 ]
-    if [ ! -z fenv.main ]
-      source 'fenv.main.fish'
-    end
-
     fenv.main $argv
   else
     omf.log red 'error: parameter missing'
