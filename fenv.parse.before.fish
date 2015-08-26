@@ -1,4 +1,4 @@
-#The MIT License (MIT)
+# The MIT License (MIT)
 
 # Copyright (c) 2015 Derek Willian Stavis
 
@@ -21,23 +21,12 @@
 # SOFTWARE.
 
 
-function fenv.main
-  set PROGRAM $argv
-  set DIVIDER (fenv.parse.divider)
+function fenv.parse.before
+    for value in $argv
+        if [ $value = (fenv.parse.divider) ]
+            break
+        end
 
-  set OLD_ENV (bash -c 'env')
-  set PROGRAM_EXECUTION (bash -c "$PROGRAM; echo '$DIVIDER'; env")
-
-  if [ 0 != $status ]
-    return
-  end
-
-  set PROGRAM_OUTPUT (fenv.parse.before $PROGRAM_EXECUTION)
-  set NEW_ENV (fenv.parse.after $PROGRAM_EXECUTION)
-
-  set ENVIRONMENT_DIFF (fenv.parse.diff "$OLD_ENV $DIVIDER $NEW_ENV")
-
-  fenv.apply $ENVIRONMENT_DIFF
-
-  printf "$PROGRAM_OUTPUT"
+        echo $value
+    end
 end

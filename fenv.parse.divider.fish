@@ -24,39 +24,3 @@
 function fenv.parse.divider
     echo '---DIVIDER---'
 end
-
-function fenv.parse.before
-    for value in $argv
-        if [ $value = (fenv.parse.divider) ]
-            break
-        end
-
-        echo $value
-    end
-end
-
-function fenv.parse.after
-    set printable 0
-
-    for value in $argv
-        if [ $printable = 1 ]
-            echo $value
-        end
-
-        if [ $value = (fenv.parse.divider) ]
-            set printable 1
-        end
-    end
-end
-
-function fenv.parse.diff
-    set SEGMENTED_ENVIRONMENT (echo $argv | tr ' ' '\n')
-    set OLD_ENV (fenv.parse.before $SEGMENTED_ENVIRONMENT)
-    set NEW_ENV (fenv.parse.after $SEGMENTED_ENVIRONMENT)
-
-    for environment in $NEW_ENV
-        if not contains $environment $OLD_ENV
-            echo $environment
-        end
-    end
-end
