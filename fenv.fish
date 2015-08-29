@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 
-function fenv
+function fenv -d "Run bash scripts and import variables modified by them"
   if [ (count $argv) -gt 0 ]
     fenv.main $argv
   else
