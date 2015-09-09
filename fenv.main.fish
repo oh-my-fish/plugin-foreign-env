@@ -24,11 +24,14 @@
 function fenv.main
   set PROGRAM $argv
   set DIVIDER (fenv.parse.divider)
-
   set OLD_ENV (bash -c 'env')
-  set PROGRAM_EXECUTION (bash -c "$PROGRAM; echo '$DIVIDER'; env")
 
-  if [ 0 != $status ]
+  if not set PROGRAM_EXECUTION (bash -c "$PROGRAM; echo; echo '$DIVIDER'; env")
+    return
+  end
+
+  if not contains -- (fenv.parse.divider) $PROGRAM_EXECUTION
+    echo "Foreign environment found and error! Aborting to avoid damage!"
     return
   end
 
