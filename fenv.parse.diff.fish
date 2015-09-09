@@ -27,7 +27,7 @@ function fenv.parse.diff
     set NEW_ENV (fenv.parse.after $SEGMENTED_ENVIRONMENT)
 
     for environment in $NEW_ENV
-        if not contains $environment $OLD_ENV
+        if not contains "$environment" $OLD_ENV
             echo $environment
         end
     end
