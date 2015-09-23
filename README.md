@@ -31,10 +31,14 @@ Reload your shell, issue a `omf install` and reload again.
 
 ## Caveats
 
-* Some applications may loose output formatting due to the way fish handle storage
+* Some applications may lose output formatting due to the way fish handle storage
 of multiline strings.
 * Currently we only handle environment variables that are added or modified. If
 a variable is unset (removed from environment) it will not be removed from fish.
+* "%s" in environment variables is not currently handled correctly
+  ([#3](https://github.com/oh-my-fish/plugin-foreign-env/issues/3))
+* "(foo)" in environment variables is not currently handled correctly
+  ([#4](https://github.com/oh-my-fish/plugin-foreign-env/issues/4))
 
 ## License
 
