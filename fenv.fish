@@ -25,7 +25,7 @@ function fenv -d "Run bash scripts and import variables modified by them"
   if [ (count $argv) -gt 0 ]
     fenv.main $argv
   else
-    echo (omf::err)'error:' (omf::off)'parameter missing'
-    echo (omf::em)'usage:' (omf::off)'fenv <bash command>'
+    echo (set_color red)'error:' (set_color normal)'parameter missing'
+    echo (set_color cyan)'usage:' (set_color normal)'fenv <bash command>'
   end
 end
