@@ -21,14 +21,13 @@
 # SOFTWARE.
 
 
-function fenv.parse.diff
-    set SEGMENTED_ENVIRONMENT (echo $argv | tr ' ' '\n')
-    set OLD_ENV (fenv.parse.before $SEGMENTED_ENVIRONMENT)
-    set NEW_ENV (fenv.parse.after $SEGMENTED_ENVIRONMENT)
+function fenv.parse.diff -a env_before env_after
+  set -l before (echo $env_before | tr ' ' '\n')
+  set -l after (echo $env_after | tr ' ' '\n')
 
-    for environment in $NEW_ENV
-        if not contains -- $environment $OLD_ENV
-            echo $environment
-        end
+  for environment in $after
+    if not contains -- "$environment" $before
+      echo $environment
     end
+  end
 end

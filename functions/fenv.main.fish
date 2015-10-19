@@ -22,25 +22,29 @@
 
 
 function fenv.main
-  set PROGRAM $argv
-  set DIVIDER (fenv.parse.divider)
-  set OLD_ENV (bash -c 'env')
+  set program $argv
+  set divider (fenv.parse.divider)
+  set previous_env (bash -c 'env')
 
-  if not set PROGRAM_EXECUTION (bash -c "$PROGRAM; echo; echo '$DIVIDER'; env")
-    return
+  set program_execution (bash -c "$program && (echo; echo '$divider'; env)" ^&1)
+  set program_status $status
+
+  if not contains -- "$divider" $program_execution
+    printf '%s\n' $program_execution
+    return $program_status
   end
 
-  if not contains -- (fenv.parse.divider) $PROGRAM_EXECUTION
-    echo "Foreign environment found and error! Aborting to avoid damage!"
-    return
+  set program_output (fenv.parse.before $program_execution)
+
+  if test $program_status != 0
+    printf "%s\n" $program_output
+    return $program_status
   end
 
-  set PROGRAM_OUTPUT (fenv.parse.before $PROGRAM_EXECUTION)
-  set NEW_ENV (fenv.parse.after $PROGRAM_EXECUTION)
+  set new_env (fenv.parse.after $program_execution)
 
-  set ENVIRONMENT_DIFF (fenv.parse.diff "$OLD_ENV $DIVIDER $NEW_ENV")
+  fenv.apply (fenv.parse.diff "$previous_env" "$new_env")
 
-  fenv.apply $ENVIRONMENT_DIFF
-
-  printf "%s\n" $PROGRAM_OUTPUT
+  printf "%s\n" $program_output
+  return $program_status
 end
