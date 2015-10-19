@@ -1,67 +1,75 @@
-# Fish Foreign Environment
+<img src="https://cloud.githubusercontent.com/assets/8317250/8510172/f006f0a4-230f-11e5-98b6-5c2e3c87088f.png" align="left" width="144px" height="144px"/>
 
-This plugin wraps application execution so that environment variables exported
-or modified by them get imported into fish. This makes possible running popular
-bash scripts, like the excellent `nvm`.
+#### Foreign Environment
+> A foreign environment interface for Fish shell
+
+[![MIT License](https://img.shields.io/badge/license-MIT-007EC7.svg?style=flat-square)](/LICENSE)
+[![Fish Shell Version](https://img.shields.io/badge/fish-v2.2.0-007EC7.svg?style=flat-square)](http://fishshell.com)
+[![Oh My Fish Framework](https://img.shields.io/badge/Oh%20My%20Fish-Framework-007EC7.svg?style=flat-square)](https://www.github.com/oh-my-fish/oh-my-fish)
+[![Travis Status](https://img.shields.io/travis/derekstavis/plugin-nvm.svg?style=flat-square)](https://travis-ci.org/derekstavis/plugin-nvm)
+
+<br/>
+
+Foreign environment wraps application execution in a way that environment variables that are exported or modified get imported back into fish. This makes possible running popular bash scripts, like the excellent `nvm`.
+
+
+# Install
+
+Be sure to have [Oh My Fish](omf-link) installed, so you just need to:
+
+```fish
+omf install foreign-env
+```
+
+If you dislike shell frameworks, you can still use Foreign Environment in Fish! Clone this repo somewhere and append to your `~/.config/fish/config.fish`:
+
+```fish
+set fish_function_path $fish_function_path <insert path to foreign-env repo>/functions
+```
+
 
 # Usage examples
 
-You can use bash syntax to export variables.
+You can use bash syntax to export variables:
 
-    fenv export PYTHON=python2
+```fish
+fenv export PYTHON=python2
+```
 
-This will have the same effect as typing
+This will have the same effect as typing:
 
-    set -g -x PYTHON python2
+```fish
+set -g -x PYTHON python2
+```
 
-You can also call multiple commands, separated by semicolon
+You can also call multiple commands, separated by semicolon:
 
-    fenv source ~/.nvm/nvm.sh \; nvm --help
+```fish
+fenv source ~/.nvm/nvm.sh \; nvm --help
+```
 
-You need to escape semicolon with slash `\;` or by double quoting `';'` to
-prevent fish from interpreting it.
+When commands aren't double quoted, you need to escape semicolon with slash `\;` to prevent fish from interpreting it. Or just quote the whole command:
 
-## Installation
+```fish
+fenv "source ~/.nvm/nvm.sh; nvm --help"
+```
 
-Add the following line to your __Oh My Fish!__ config file:
 
-    Plugin "foreign-env"
+# Caveats
 
-Reload your shell, issue a `omf install` and reload again.
-
-## Caveats
-
-* Some applications may lose output formatting due to the way fish handle storage
-of multiline strings.
-* Currently we only handle environment variables that are added or modified. If
-a variable is unset (removed from environment) it will not be removed from fish.
-* "%s" in environment variables is not currently handled correctly
+* Some applications may lose output formatting due to the way fish handle storage of multiline strings.
+* Currently we only handle environment variables that are added or modified. If a variable is unset (removed from environment) it will not be removed from fish.
+* `%s` in environment variables is not currently handled correctly
   ([#3](https://github.com/oh-my-fish/plugin-foreign-env/issues/3))
-* "(foo)" in environment variables is not currently handled correctly
+* `"(foo)"` in environment variables is not currently handled correctly
   ([#4](https://github.com/oh-my-fish/plugin-foreign-env/issues/4))
 
-## License
 
-```
-The MIT License (MIT)
+# License
 
-Copyright (c) 2015 Derek Willian Stavis
+[MIT][mit] © [Derek Willian Stavis][author]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+[mit]:            http://opensource.org/licenses/MIT
+[author]:         http://github.com/derekstavis
+[omf-link]:       https://www.github.com/oh-my-fish/oh-my-fish
