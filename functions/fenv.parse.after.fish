@@ -22,15 +22,12 @@
 
 
 function fenv.parse.after
-    set printable 0
+  set -l divider (fenv.parse.divider)
 
-    for value in $argv
-        if [ $printable = 1 ]
-            echo $value
-        end
-
-        if [ $value = (fenv.parse.divider) ]
-            set printable 1
-        end
-    end
+  for value in $argv
+    set -q printable;
+      and echo $value
+    test "$value" = "$divider";
+      and set printable
+  end
 end

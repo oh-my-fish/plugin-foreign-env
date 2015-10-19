@@ -22,7 +22,7 @@
 
 
 function fenv -d "Run bash scripts and import variables modified by them"
-  if [ (count $argv) -gt 0 ]
+  if test (count $argv) -gt 0
     fenv.main $argv
   else
     echo (set_color red)'error:' (set_color normal)'parameter missing'

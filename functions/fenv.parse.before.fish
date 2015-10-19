@@ -22,11 +22,12 @@
 
 
 function fenv.parse.before
-    for value in $argv
-        if [ $value = (fenv.parse.divider) ]
-            break
-        end
+  set -l divider (fenv.parse.divider)
 
-        echo $value
-    end
+  for value in $argv
+    test "$value" = "$divider";
+      and break
+
+     echo $value
+  end
 end
