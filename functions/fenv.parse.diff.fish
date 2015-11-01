@@ -28,7 +28,6 @@ function fenv.parse.diff
   for environment in $after
     if not contains -- "$environment" $before
       echo $environment
-      echo $environment >> /tmp/fenv.log
     end
   end
 end
