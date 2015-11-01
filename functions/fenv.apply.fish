@@ -26,7 +26,7 @@ function fenv.apply
 
     for variable in $variables
         set key (echo $variable | sed -e 's/=.*//')
-        set value (echo $variable | sed -e 's/.*=//')
+        set value (echo $variable | sed -e 's/[^=]*=//')
 
         if test "$key" = 'PATH'
           set value (echo $value | sed -e 's/:/ /g')
