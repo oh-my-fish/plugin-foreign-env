@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 
-function fenv.parse.diff -a env_before env_after
-  set -l before (echo $env_before | tr ' ' '\n')
-  set -l after (echo $env_after | tr ' ' '\n')
+function fenv.parse.diff
+  set -l before (fenv.parse.before $argv)
+  set -l after (fenv.parse.after $argv)
 
   for environment in $after
     if not contains -- "$environment" $before

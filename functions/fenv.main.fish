@@ -43,7 +43,7 @@ function fenv.main
 
   set new_env (fenv.parse.after $program_execution)
 
-  fenv.apply (fenv.parse.diff "$previous_env" "$new_env")
+  fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
 
   printf "%s\n" $program_output
   return $program_status
