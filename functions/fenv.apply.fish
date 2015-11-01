@@ -25,15 +25,13 @@ function fenv.apply
     set variables $argv
 
     for variable in $variables
-        set key (echo $variable | sed -e 's/=.*//')
-        set value (echo $variable | sed -e 's/[^=]*=//')
+        set key (echo $variable | sed 's/=.*//')
+        set value (echo $variable | sed 's/[^=]*=//')
 
         if test "$key" = 'PATH'
-          set value (echo $value | sed -e 's/:/ /g')
+          set value (echo $value | tr ':' '\n')
         end
 
-        set command "set -g -x $key $value"
-
-        eval "$command" > /dev/null 2>&1
+        set -g -x $key $value
     end
 end
