@@ -45,6 +45,8 @@ function fenv.main
 
   fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
 
-  printf "%s\n" $program_output
+  test (count $program_output) -gt 1
+    and printf "%s\n" $program_output[1..-2]
+    or  printf $program_output
   return $program_status
 end
