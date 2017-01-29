@@ -15,7 +15,7 @@ Foreign environment wraps application execution in a way that environment variab
 
 # Install
 
-Be sure to have [Oh My Fish](omf-link) installed, so you just need to:
+Be sure to have [Oh My Fish][omf-link] installed, so you just need to:
 
 ```fish
 omf install foreign-env
