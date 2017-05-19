@@ -25,28 +25,17 @@ function fenv.main
   set program $argv
   set divider (fenv.parse.divider)
   set previous_env (bash -c 'env')
+  set -l temp_file "/tmp/fenv."(random)
 
-  set program_execution (bash -c "$program && (echo; echo '$divider'; env)" ^&1)
+  bash -c "$program && env >$temp_file"
   set program_status $status
 
-  if not contains -- "$divider" $program_execution
-    printf '%s\n' $program_execution
-    return $program_status
+  if test $program_status -eq 0
+    set new_env (cat $temp_file)
+    rm $temp_file
+
+    fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
   end
 
-  set program_output (fenv.parse.before $program_execution)
-
-  if test $program_status != 0
-    printf "%s\n" $program_output
-    return $program_status
-  end
-
-  set new_env (fenv.parse.after $program_execution)
-
-  fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
-
-  test (count $program_output) -gt 1
-    and printf "%s\n" $program_output[1..-2]
-    or  printf $program_output
   return $program_status
 end
