@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 
-function fenv.apply
+function fenv.apply.env
     set variables $argv
 
     for variable in $variables

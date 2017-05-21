@@ -1,4 +1,4 @@
-#The MIT License (MIT)
+# The MIT License (MIT)
 
 # Copyright (c) 2015 Derek Willian Stavis
 
@@ -21,25 +21,10 @@
 # SOFTWARE.
 
 
-function fenv.main
-  set program $argv
-  set divider (fenv.parse.divider)
-  set previous_env (bash -c 'env')
-  set previous_alias (bash -c 'alias -p')
-  set -l temp_file "/tmp/fenv."(random)
+function fenv.apply.alias
+    set aliases $argv
 
-  bash -c "$program && (env && echo $divider && alias -p) >$temp_file"
-  set program_status $status
-
-  if test $program_status -eq 0
-    set file_contents (cat $temp_file)
-    rm $temp_file
-    set new_env (fenv.parse.before $file_contents)
-    set new_alias (fenv.parse.after $file_contents)
-
-    fenv.apply.env (fenv.parse.diff $previous_env $divider $new_env)
-    fenv.apply.alias (fenv.parse.diff $previous_alias $divider $new_alias)
-  end
-
-  return $program_status
+    for alias in $aliases
+      eval $alias
+    end
 end
