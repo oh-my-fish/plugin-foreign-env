@@ -26,7 +26,7 @@ function fenv.main
   set divider (fenv.parse.divider)
   set previous_env (bash -c 'env')
 
-  set program_execution (bash -c "$program && (echo; echo '$divider'; env)" ^&1)
+  set program_execution (bash -c "$program && (echo; echo '$divider'; env)" 2>&1)
   set program_status $status
 
   if not contains -- "$divider" $program_execution
