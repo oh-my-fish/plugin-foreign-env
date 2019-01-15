@@ -26,7 +26,9 @@ function fenv.main
   set divider (fenv.parse.divider)
   set previous_env (bash -c 'env')
 
-  set program_execution (bash -c "$program && (echo; echo '$divider'; env)" ^&1)
+  # Need to ensure that the two calls to env (here and above) have the same
+  # nesting level within bash shells so that the SHLVL variable does not differ.
+  set program_execution (bash -c "$program && echo && echo '$divider' && env" ^&1)
   set program_status $status
 
   if not contains -- "$divider" $program_execution
