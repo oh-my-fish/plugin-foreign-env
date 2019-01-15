@@ -30,6 +30,11 @@ function fenv.apply
 
         if test "$key" = 'PATH'
           set value (echo $value | tr ':' '\n')
+        # else if test "$key" = "SHLVL"
+        #   # False difference created by running the `env` command at different
+        #   # shell levels.
+        #   # Avoids warning message in fish 3.0 that SHLVL is read-only.
+        #   continue
         end
 
         set -g -x $key $value
