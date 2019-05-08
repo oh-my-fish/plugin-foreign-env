@@ -24,7 +24,7 @@
 function fenv.main
   set program $argv
   set divider (fenv.parse.divider)
-  set previous_env (bash -c 'env')
+  set previous_env (bash -c 'env' 2>&1)
 
   # Need to ensure that the two calls to env (here and above) have the same
   # nesting level within bash shells so that the SHLVL variable does not differ.
