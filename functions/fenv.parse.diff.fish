@@ -26,6 +26,10 @@ function fenv.parse.diff
   set -l after (fenv.parse.after $argv)
 
   for environment in $after
+    # Skip the _ variable to avoid 
+    if string match -q -- "_=*" "$environment"
+      continue
+    end
     if not contains -- "$environment" $before
       echo $environment
     end
