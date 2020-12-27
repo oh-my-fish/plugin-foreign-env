@@ -27,7 +27,15 @@ function fenv -d "Run bash scripts and import variables modified by them"
       return 0
     end
 
-    fenv.main $argv
+    argparse 'p/print' -- $argv
+
+    if test -n $_flag_print
+      set operation "print"
+    else
+      set operation "apply"
+    end
+
+    fenv.main $operation $argv
     return $status
   else
     echo (set_color red)'error:' (set_color normal)'parameter missing'
