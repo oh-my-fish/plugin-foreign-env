@@ -21,8 +21,8 @@
 # SOFTWARE.
 
 
-function fenv.main
-  set program $argv
+function fenv.main -a operation -a rest
+  set program $rest
   set divider (fenv.parse.divider)
   set previous_env (bash -c 'env')
 
@@ -45,7 +45,14 @@ function fenv.main
 
   set new_env (fenv.parse.after $program_execution)
 
-  fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
+  if [ $operation = "apply" ]
+    fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
+  else if [ $operation = "print" ]
+    fenv.print (fenv.parse.diff $previous_env $divider $new_env)
+  else
+    printf "Invalid command: %s\n" $operation
+    return $program_status
+  end
 
   test (count $program_output) -gt 1
     and printf "%s\n" $program_output[1..-2]
