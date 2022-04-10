@@ -28,6 +28,6 @@ function fenv.parse.before
     test "$value" = "$divider";
       and break
 
-     echo $value
+    echo $value
   end
 end

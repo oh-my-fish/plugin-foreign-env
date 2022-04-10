@@ -22,16 +22,16 @@
 
 
 function fenv.apply
-    set variables $argv
+  set variables $argv
 
-    for variable in $variables
-        set key (echo $variable | sed 's/=.*//')
-        set value (echo $variable | sed 's/[^=]*=//')
+  for variable in $variables
+    set key (echo $variable | sed 's/=.*//')
+    set value (echo $variable | sed 's/[^=]*=//')
 
-        if test "$key" = 'PATH'
-          set value (echo $value | tr ':' '\n')
-        end
-
-        set -g -x $key $value
+    if test "$key" = 'PATH'
+      set value (echo $value | tr ':' '\n')
     end
+
+    set -g -x $key $value
+  end
 end

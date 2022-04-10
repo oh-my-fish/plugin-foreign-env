@@ -22,5 +22,5 @@
 
 
 function fenv.parse.divider
-    echo '---DIVIDER---'
+  echo '---DIVIDER---'
 end
