@@ -54,6 +54,20 @@ When commands aren't double quoted, you need to escape semicolon with slash `\;`
 fenv "source ~/.nvm/nvm.sh; nvm --help"
 ```
 
+You can also choose to print the output instead of setting the environment:
+
+```fish
+fenv -p export PYTHON=python2
+```
+
+will print
+
+```fish
+set -g -x PYTHON python2
+```
+
+instead of executing the command. This can be used to translate a foreign environment file to a native fish file.
+
 
 # Caveats
 
