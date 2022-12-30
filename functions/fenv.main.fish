@@ -22,33 +22,17 @@
 
 
 function fenv.main
-  set program $argv
-  set divider (fenv.parse.divider)
-  set previous_env (bash -c 'env')
-
-  # Need to ensure that the two calls to env (here and above) have the same
-  # nesting level within bash shells so that the SHLVL variable does not differ.
-  set program_execution (bash -c "$program && echo && echo '$divider' && env" 2>&1)
-  set program_status $status
-
-  if not contains -- "$divider" $program_execution
-    printf '%s\n' $program_execution
-    return $program_status
+  bash -c "$argv && env -0 >&31" 31>| while read -l -z env_var
+    set -l kv (string split -m 1 = $env_var); or continue
+    # Skip read-only variables
+    contains $kv[1] _ SHLVL PWD; and continue
+    # Variable
+    # - is not defined
+    # - OR variable differs
+    # - OR variable is not exported
+    if not set -q $kv[1]; or test "$$kv[1]" != $kv[2]; or not set -qx $kv[1]
+      set -gx $kv
+    end
   end
-
-  set program_output (fenv.parse.before $program_execution)
-
-  if test $program_status != 0
-    printf "%s\n" $program_output
-    return $program_status
-  end
-
-  set new_env (fenv.parse.after $program_execution)
-
-  fenv.apply (fenv.parse.diff $previous_env $divider $new_env)
-
-  test (count $program_output) -gt 1
-    and printf "%s\n" $program_output[1..-2]
-    or  printf $program_output
-  return $program_status
+  return $pipestatus[1]
 end
