@@ -12,13 +12,10 @@ jobs:
       contents: read
       checks: write
     runs-on: ubuntu-latest
-    env:
-      # HOME: /home/nemo
-      USER: root
     container: ohmyfish/ohmyfish
     steps:
-      # - name: Change current working directory owner and group
-      #   run: sudo chown -R nemo:nemo .
+      - name: Change current working directory owner and group
+        run: sudo chown -R nemo:nemo .
       - name: print stuff
         run: |
          whoami
@@ -27,7 +24,9 @@ jobs:
          echo $GITHUB_WORKSPACE
          touch foo
       - uses: actions/checkout@v3
-      - name: Install plugin from current working directory
-        run: fish -c "omf install (pwd)"
+        with:
+          path: .
+      # - name: Install plugin from current working directory
+      #   run: fish -c "omf install (pwd)"
       - name: Run tests
         run: fish -l test/bootstrap.fish
