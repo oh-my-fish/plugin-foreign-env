@@ -16,6 +16,8 @@ jobs:
       - name: Install Fish Shell
         run: sudo apt update -y && sudo apt install -y fish
       - uses: actions/checkout@v3
+      - name: Install Oh-My-Fish
+        run: curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
       # - name: Install plugin from current working directory
       #   run: fish -c "omf install (pwd)"
       - name: Run tests
