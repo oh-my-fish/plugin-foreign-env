@@ -20,7 +20,11 @@ jobs:
         run: curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
       - name: Install Oh-My-Fish
         run: fish install --noninteractive
-      # - name: Install plugin from current working directory
-      #   run: fish -c "omf install (pwd)"
+      - name: print stuff
+        run: |
+          pwd
+          ls -lhart
+      - name: Install plugin from current working directory
+        run: fish -c "omf install (pwd)"
       - name: Run tests
         run: fish -l test/bootstrap.fish
