@@ -9,23 +9,13 @@ permissions:
 jobs:
   test:
     permissions:
-      contents: write
+      contents: read
       checks: write
     runs-on: ubuntu-latest
-    container: ohmyfish/ohmyfish
     steps:
-      - name: Change current working directory owner and group
-        run: sudo chown -R nemo:nemo .
-      - name: print stuff
-        run: |
-         whoami
-         pwd
-         ls -lhart
-         echo $GITHUB_WORKSPACE
-         touch foo
+      - name: Install Fish Shell
+        run: apt update -y && apt install -y fish
       - uses: actions/checkout@v3
-        with:
-          path: .
       # - name: Install plugin from current working directory
       #   run: fish -c "omf install (pwd)"
       - name: Run tests
