@@ -24,8 +24,8 @@ jobs:
          whoami
          pwd
          ls -lhart
-         touch foo
          echo $GITHUB_WORKSPACE
+         touch foo
       - uses: actions/checkout@v3
       - name: Install plugin from current working directory
         run: fish -c "omf install (pwd)"
