@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Fish Shell
-        run: apt update -y && apt install -y fish
+        run: sudo apt update -y && sudo apt install -y fish
       - uses: actions/checkout@v3
       # - name: Install plugin from current working directory
       #   run: fish -c "omf install (pwd)"
