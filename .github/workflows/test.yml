@@ -2,9 +2,15 @@ name: test
 on:
   push:
   pull_request:
-    types: [opened, reopened]
+
+permissions:
+  checks: write
+
 jobs:
   test:
+    permissions:
+      contents: read
+      checks: write
     runs-on: ubuntu-latest
     env:
       HOME: /home/nemo
@@ -12,6 +18,12 @@ jobs:
     steps:
       - name: Change current working directory owner and group
         run: sudo chown -R nemo:nemo .
+      - name: print stuff
+        run: |
+         whoami
+         pwd
+         ls -lhart
+         touch foo
       - uses: actions/checkout@v2
       - name: Install plugin from current working directory
         run: fish -c "omf install (pwd)"
