@@ -26,6 +26,7 @@ function fenv.main
     set -l kv (string split -m 1 = $env_var); or continue
     # Skip read-only variables
     contains $kv[1] _ SHLVL PWD; and continue
+    string match -rq '^BASH_.*%%$' $kv[1]; and continue
     # Variable
     # - is not defined
     # - OR variable differs
