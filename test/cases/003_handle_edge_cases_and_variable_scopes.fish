@@ -20,3 +20,5 @@ it_should "return both stdout and stderr" \
   'test $both = error\ntest; and test $test = a'
 it_should "work with variables used by main function" \
   'fenv export env_var=a\; export kv=a; set -qgx env_var; and set -qgx kv; and test $env_var = a -a $kv = a'
+it_should "should display the input given" \
+  'set test_input (echo -n "pouet" | fenv "bash test/test_input.sh"); test "$test_input" = "pouet"'
