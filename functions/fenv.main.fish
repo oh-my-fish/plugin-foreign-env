@@ -27,6 +27,8 @@ function fenv.main
     # Skip read-only variables
     contains $kv[1] _ SHLVL PWD; and continue
     string match -rq '^BASH_.*%%$' $kv[1]; and continue
+    # Skip variables with invalid names
+    string match -rq '^[a-zA-Z0-9_]+$' $kv[1]; or continue
     # Variable
     # - is not defined
     # - OR variable differs

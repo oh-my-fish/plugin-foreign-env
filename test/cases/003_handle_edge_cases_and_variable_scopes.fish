@@ -20,3 +20,5 @@ it_should "return both stdout and stderr" \
   'test $both = error\ntest; and test $test = a'
 it_should "work with variables used by main function" \
   'fenv export env_var=a\; export kv=a; set -qgx env_var; and set -qgx kv; and test $env_var = a -a $kv = a'
+it_should "skip variables with invalid names" \
+  'set -l output (env "foo-bar=123" fish -N -c "set fish_function_path -p ./functions; fenv \'export valid_var=456\'; and echo \$valid_var" 2>&1); test "$output" = 456'
